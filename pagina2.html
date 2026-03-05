@@ -1,0 +1,203 @@
+<!-- pagina2.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 2 - Login y Archivos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0f0f23;
+            color: #00ff00;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .nav-bar {
+            background: #1a1a2e;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            border: 1px solid #00ff00;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .nav-bar a {
+            color: #00ff00;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-bar a:hover {
+            background: #00ff00;
+            color: #0f0f23;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .login-section {
+            background: #1a1a2e;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #00ff00;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            background: #0f0f23;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        .file-section {
+            background: #1a1a2e;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #00ff00;
+        }
+        
+        .file-display {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #0f0f23;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            min-height: 200px;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        button {
+            background: #00ff00;
+            color: #0f0f23;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            box-shadow: 0 0 20px #00ff00;
+            transform: scale(1.05);
+        }
+        
+        .console-log {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #000;
+            border-left: 3px solid #00ff00;
+            font-size: 0.8rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <span style="font-weight: bold;">🖥️ PÁGINA 2 - TERMINAL</span>
+        <div>
+            <a href="index.html">🏠 Inicio</a>
+            <a href="pagina3.html">📅 Siguiente →</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>🔐 SISTEMA DE ACCESO</h1>
+        
+        <div class="login-section">
+            <div class="input-group">
+                <label>📧 CORREO ELECTRÓNICO:</label>
+                <input type="email" id="email" placeholder="usuario@sistema.com">
+            </div>
+            
+            <div class="input-group">
+                <label>🔑 CONTRASEÑA:</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+            
+            <button onclick="login()">INICIAR SESIÓN</button>
+        </div>
+        
+        <div class="file-section">
+            <h2>📁 CARGAR ARCHIVO .TXT</h2>
+            <input type="file" id="fileInput" accept=".txt" style="margin: 1rem 0;">
+            <div class="file-display" id="fileContent">
+                [ ESPERANDO ARCHIVO... ]
+            </div>
+            <div class="console-log" id="consoleOutput">
+                > Consola lista para recibir datos...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            console.log('Login attempt:', { email, password });
+            alert(`Acceso registrado para: ${email}`);
+        }
+        
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                document.getElementById('fileContent').textContent = content;
+                console.log('Contenido del archivo:', content);
+                document.getElementById('consoleOutput').textContent = 
+                    `> Archivo cargado: ${file.name}\n> Tamaño: ${file.size} bytes\n> Contenido mostrado en pantalla y consola`;
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>

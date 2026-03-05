@@ -1,0 +1,306 @@
+<!-- pagina6.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 6 - Buscador Global</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .nav-bar {
+            background: #161b22;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-bar a {
+            color: #58a6ff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            transition: all 0.2s;
+            background: #21262d;
+        }
+        
+        .nav-bar a:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #f0883e;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .search-box {
+            background: #161b22;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            margin-bottom: 2rem;
+        }
+        
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: #0d1117;
+            border: 2px solid #30363d;
+            color: #c9d1d9;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: inherit;
+        }
+        
+        #searchInput:focus {
+            outline: none;
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .stats {
+            color: #8b949e;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .results-container {
+            background: #161b22;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .result-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid #30363d;
+            transition: background 0.2s;
+        }
+        
+        .result-item:hover {
+            background: #21262d;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-title {
+            color: #58a6ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .result-context {
+            color: #8b949e;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: rgba(240, 136, 62, 0.3);
+            color: #f0883e;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #8b949e;
+        }
+        
+        .page-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background: #238636;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <span style="color: #f0883e; font-weight: bold;">🔍 PÁGINA 6 - BÚSQUEDA</span>
+        <div>
+            <a href="index.html">🏠 Inicio</a>
+            <a href="pagina5.html">← Anterior</a>
+            <a href="pagina7.html">Siguiente →</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>🔍 BUSCADOR GLOBAL DEL SITIO</h1>
+        
+        <div class="search-box">
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Buscar en todas las páginas... (ej: tecnología, color, precio, fecha)">
+            </div>
+            <div class="stats" id="searchStats">Escribe para buscar contenido en las 8 páginas del sitio</div>
+        </div>
+        
+        <div class="results-container" id="resultsContainer">
+            <div class="no-results">
+                🔍 El buscador está listo. Escribe arriba para encontrar contenido específico.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de datos de contenido de todas las páginas
+        const siteContent = [
+            {
+                page: "Página 1 - Inicio",
+                url: "index.html",
+                content: "Portal Principal Bienvenido al sitio web multi-funcional Página 2 Login Archivos Página 3 Calendario PDF Página 4 Multimedia Página 5 Texto Página 6 Buscador Página 7 Texto largo Página 8 Catálogo Filtros"
+            },
+            {
+                page: "Página 2 - Login",
+                url: "pagina2.html",
+                content: "Sistema de Acceso Terminal Correo electrónico Contraseña Iniciar sesión Cargar archivo TXT texto consola visualización código programación seguridad acceso datos archivo lectura file API JavaScript"
+            },
+            {
+                page: "Página 3 - Calendario",
+                url: "pagina3.html",
+                content: "Calendario Visualizador PDF Fecha seleccionada día mes año Documentos PDF render canvas página zoom anterior siguiente navegación archivo pdf.js Mozilla visor documentos digital"
+            },
+            {
+                page: "Página 4 - Multimedia",
+                url: "pagina4.html",
+                content: "Estudio Multimedia Selector color hexadecimal imagen audio video cargar previsualización reproductor controles música fotografía gradiente animación bounce efectos visuales creativo"
+            },
+            {
+                page: "Página 5 - Texto 255",
+                url: "pagina5.html",
+                content: "Revolución Digital Impacto Sociedad Moderna adventimiento tecnología transformación existencia comunicación dispositivos electrónicos internet red información democratización historia teléfonos inteligentes computación espacial datos fotografía transacciones financieras inteligencia artificial algoritmos aprendizaje diagnósticos médicos vehículos autónomos asistentes virtuales ética privacidad redes sociales interacciones humanas comunidades plataformas desinformación adicción polarización comercio electrónico mercados logística seguridad cibernética educación cursos universitarios simulaciones quirúrgicas medicina digital dispositivos vestibles teleconsultas impresión 3D prótesis entretenimiento cinematográfico videojuegos realidad virtual música streaming brecha tecnológica ciberseguridad hackers ransomware futuro biología implantes cerebrales ciudades inteligentes realidad aumentada alfabetización digital regulatorios éticos sostenibilidad ambiental equidad justicia prosperidad"
+            },
+            {
+                page: "Página 6 - Buscador",
+                url: "pagina6.html",
+                content: "Buscador Global búsqueda contenido páginas sitio web estadísticas resultados highlight resaltado navegación interfaz búsqueda encontrar localizar texto palabras clave indexación base datos"
+            },
+            {
+                page: "Página 7 - Texto 327",
+                url: "pagina7.html",
+                content: "Odisea Cosmos Exploración Espacial Profunda humanidad siempre miró estrellas preguntándose qué misterios oculta inmensidad cósmica viajes espaciales representan máxima expresión curiosidad ingenio colectivo cohetes propulsan más allá gravedad terrestre hacia horizontes desconocidos astronautas entrenan rigurosamente años preparándose condiciones extremas aislamiento prolongado radiación ionizante ingravidez alteraciones fisiológicas complejas estaciones orbitales laboratorios científicos flotantes donde investigaciones microgravedad revelan comportamientos materiales imposibles replicar superficie planetaria telescopios espaciales como Hubble James Webb capturan imágenes espectaculares galaxias distantes billones años luz agujeros negros supermasivos devorando estrellas nebulosas coloridas nacimientos estelares activos Marte planeta rojo fascina científicos signos antigua presencia agua líquida posibilidad vida microbiana pasada misiones robots exploran superficie analizando rocas regolito buscando fósiles biológicos Luna satélite natural nuestra única compañera celestial viaje tripulado próxima década establecer bases permanentes punto partida exploración más profunda asteroides cuerpos rocosos millones riquezas minerales platino oro agua congelada recursos esenciales futura economía espacial colonización planetaria requiere soluciones ingeniería avanzadas hábitats presurizados generación oxígeno reciclaje perfecto residuos protección radiación cósmica meteoritos comunicación interplanetaria presenta desafíos únicos latencia significativa entre Tierra Marte requiere autonomía decisiones vehículos exploración comercio interestelar aún ciencia ficción pero empresas privadas SpaceX Blue Origin Virgin Galactic acercan realidad turismo espacial accesible personas ordinarias no solo astronautas profesionales física cuántica estudia fenómenos escalas subatómicas extrañas superposición estados entrelazamiento partículas prometen revolucionar computación comunicación absolutamente segura energía fusión nuclear limpia abundante podría satisfacer necesidades civilización sin contaminar planeta materia oscura energía oscura constituyen mayor universo permanece misterio total desafía comprensión física actual agujeros gusano teóricos podrían permitir viajes más rápidos luz conectando puntos distantes espacio-tiempo civilizaciones extraterrestres inteligentes búsqueda SETI escucha señales radio cosmos silencio hasta ahora Fermi paradoja pregunta dónde todos extraterrestres deberían abundantes pero detectamos ninguno colonización galáctica futuro lejano humanidad podría expandirse por vía Láctea terraformando planetas inadecuados vida creando atmósferas biosferas artificiales ingeniería climática planetaria ética exploración espacial debate proteger planetas esterilización biológica versus derecho expandirse supervivencia especie amenazas cosmicas asteroides potencialmente peligrosos erupciones solares extremas requieren sistemas defensa planetaria vigilancia constante cielo cooperación internacional absolutamente esencial ninguna nación sola lograr conquista espacial sino unidad esfuerzos recursos conocimiento compartido legado exploradores espaciales permanece inspiración generaciones soñar grande alcanzar estrellas"
+            },
+            {
+                page: "Página 8 - Catálogo",
+                url: "pagina8.html",
+                content: "Catálogo Productos Filtro Precios Artículos electrónica ropa hogar deportes libros juguetes herramientas belleza salud alimentos bebidas ordenadores portátiles smartphones tablets auriculares cámaras consolas videojuegos teclados ratones monitores impresoras routers cables accesorios protección camisetas pantalones zapatos chaquetas vestidos trajes corbatas calcetines ropa interior deportiva formal casual infantil muebles decoración iluminación cocina baño jardín organización limpieza mantas almohadas cortinas alfombras electrodomésticos neveras lavadoras hornos microondas aspiradoras aire acondicionado calefacción ventiladores bicicletas pesas máquinas ejercicio ropa deportiva calzado running yoga natación camping pesca caza balones raquetas mochilas tiendas dormir novelas ciencia ficción fantasía terror romance histórica biografías ensayos poesía cómics mangas educativos infantiles juveniles academicos muñecas vehículos construcción didácticos mesas juego rompecabezas cartas coleccionables robótica programación ciencia experimentos taladros sierras destornilladores martillos llaves medición seguridad pintura fontanería electricidad jardinería bricolaje maquillaje perfumes cremas champús jabones tratamientos protectores solares vitaminas suplementos medicamentos primeros auxilios equipos diagnóstico ortopedia bienestar relajación frutas verduras carnes pescados lacteos panadería dulces bebidas alcoholicas refrescos jugos agua mineral café té chocolate snacks conservas congelados organicos gourmet internacional precio mínimo máximo rango filtrar ordenar categoría marca valoración disponibilidad ofertas descuentos carrito compra"
+            }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const searchStats = document.getElementById('searchStats');
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                resultsContainer.innerHTML = '<div class="no-results">🔍 El buscador está listo. Escribe arriba para encontrar contenido específico.</div>';
+                searchStats.textContent = 'Escribe para buscar contenido en las 8 páginas del sitio';
+                return;
+            }
+            
+            const results = [];
+            siteContent.forEach(page => {
+                const content = page.content.toLowerCase();
+                const index = content.indexOf(query);
+                
+                if (index !== -1) {
+                    // Encontrar contexto alrededor de la coincidencia
+                    const start = Math.max(0, index - 60);
+                    const end = Math.min(page.content.length, index + query.length + 60);
+                    let context = page.content.substring(start, end);
+                    
+                    if (start > 0) context = '...' + context;
+                    if (end < page.content.length) context = context + '...';
+                    
+                    // Resaltar la coincidencia
+                    const regex = new RegExp(`(${query})`, 'gi');
+                    context = context.replace(regex, '<span class="highlight">$1</span>');
+                    
+                    results.push({
+                        ...page,
+                        context: context
+                    });
+                }
+            });
+            
+            displayResults(results, query);
+        });
+
+        function displayResults(results, query) {
+            searchStats.textContent = `Encontradas ${results.length} coincidencias para "${query}"`;
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        ❌ No se encontraron resultados para "${query}"<br>
+                        <small>Intenta con otros términos como: tecnología, color, precio, fecha, espacio, catálogo...</small>
+                    </div>
+                `;
+                return;
+            }
+            
+            resultsContainer.innerHTML = results.map(result => `
+                <div class="result-item" onclick="window.location.href='${result.url}'" style="cursor: pointer;">
+                    <div class="result-title">
+                        📄 ${result.page}
+                        <span class="page-badge">Ir a página →</span>
+                    </div>
+                    <div class="result-context">${result.context}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
